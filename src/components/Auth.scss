@@ -1,0 +1,40 @@
+/*  Authentication common style */
+.auth{
+    width: 100vw;
+    height: 100vh;
+}
+
+.auth__container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-image: url("../assets/auth-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width:  100%;
+    min-height: 100%;
+}
+
+/*   Login style */
+.auth__container__login-component{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    gap:8rem
+}
+
+.auth__container__login-component__greet{
+    padding-top: 3.5rem;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: lighter;
+    line-height: 2rem;
+}
+
+.auth__container__login-component__greet span{
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
