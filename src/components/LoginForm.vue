@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 export default{
     name: 'LoginForm',
     data() {
@@ -131,5 +131,5 @@ export default{
 </script>
 
 <style>
-@import './LoginForm.scss';
+@import '@/components/LoginForm.scss';
 </style>

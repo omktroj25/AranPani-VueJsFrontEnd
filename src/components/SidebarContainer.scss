@@ -1,0 +1,134 @@
+/* Sidebar container style */
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #040930;
+    min-height: 100vh;
+    min-width: 18.6vw;
+    overflow-y: scroll;
+}
+
+.sidebar-container__title{
+    color: white;
+    font-size: 2.375rem;
+    font-weight: 500;
+    padding: 2rem 1rem;
+    margin: 0.5rem 2rem;
+}
+
+.sidebar-container__option{
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 1rem;
+    gap: .7rem;
+    padding: 0rem 1.5rem;
+    min-height: 3.125rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.sidebar-option-selected{
+    position: relative;
+    border-radius: .5rem;
+    left: 7.5rem;
+    transform: translateX(-50%);
+    border: none;
+    content: "";
+    background-color: #396AFF;
+    z-index: 0;
+    animation: full-width 0.5s forwards;
+}
+
+.sidebar-container__option__icon{
+    filter: invert(1);
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+}
+
+.sidebar-container__option__txt{
+    color: white;
+    text-decoration: underline #040930;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sidebar-container__user-settings{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    background-color: #292D4E;
+    padding: 1rem 1.4rem;
+    margin: 6rem 1rem 1rem 1rem;
+    border-radius: 0 0 .5rem .5rem;
+}
+
+.sidebar-container__user-settings__admin{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.sidebar-container__user-settings__admin__img-bg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #45496B;
+    min-width: 2.2rem;
+    min-height: 2.2rem;
+}
+
+.sidebar-container__user-settings__admin__img-bg__icon{
+    filter: invert(1);
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+}
+
+.sidebar-container__user-settings__admin__txt{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    font-size: .9rem;
+    font-weight: lighter;
+    padding-left: .7rem;
+}
+
+.sidebar-container__user-settings__menu-btn{
+    display: flex;
+    min-width: 1rem;
+}
+
+.sidebar-container__user-settings__menu-btn__icon{
+    filter: invert(1);
+    max-width: .7rem;
+    max-height: .7rem;
+}
+
+.sidebar-container__user-settings__menu{
+    position: absolute;
+    bottom: 4.7rem;
+    left: 0;
+    color: white;
+    background-color: #292D4E;
+    border-radius: .5rem .5rem 0rem 0rem;
+    min-width: 16.4vw;
+    min-height: 10rem;
+}
+
+.sidebar-container__user-settings__menu__option{
+    display: flex;
+    gap: .7rem;
+    margin: 1.4rem 1rem;
+    padding: 0rem 1.45rem 0rem 1.4rem;
+}
+
+.sidebar-container__user-settings__menu__option__img {
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+    filter: invert(.5);
+}
+
+.sidebar-container__user-settings__menu__option__txt{
+    font-size: 1rem;
+    font-weight: 400;
+}
