@@ -18,7 +18,7 @@ export default{
         SidebarContainer,
         MainContainer,
     },
-}
+};
 </script>
 
 <style>

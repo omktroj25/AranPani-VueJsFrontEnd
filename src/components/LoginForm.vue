@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import AuthService from '@/services/AuthService.ts';
 export default{
     name: 'LoginForm',
     data() {
@@ -82,50 +82,15 @@ export default{
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword;
         },
-        async login() {
-            // Create a data object to send in the request
-            const requestData = {
-                user: {
-                email: this.email,
-                password: this.password,
-                permissions: []
-                }
-            };
-            const maxRetries = 3; 
-            let retries = 0;
-            while (retries < maxRetries) {
-                try {
-                const response = await axios.post('https://api.uat.aranpani.in/api/v1/users/sign_in', requestData);
-                // Handle the successful response here
-                console.log('Login Successful');
-                console.log(response);
-                    if(response.status == 200){
-                        alert("User logged in successfully");
-                    }
-                return;
-                } catch (error) {
-                    if(error.response.status == 401){
-                        alert("Unauthorized user");
-                        return;
-                    }
-                    else if(error.response.status == 500){
-                        alert("Internal server error");
-                        return;
-                    }
-                    else{
-                        retries++;
-                        if (retries < maxRetries) {
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                        } else {
-                            console.error('Max retries reached. Unable to login.');
-                            return;
-                        }
-                    }
-                    console.error('Login Error');
-                    console.error(error);
-                }
+        login() {
+            const response = AuthService.login(this.email,this.password);
+            console.log(response);
+            if(response.status == 200){
+                alert("User logged in successfully");
+                // this.$router.push('/projects');
             }
-        }
+            return;
+        },
     },
 };
 </script>

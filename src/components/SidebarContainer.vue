@@ -2,10 +2,10 @@
     <div class="sidebar-container">
         <p class="sidebar-container__title">Aran Pani</p>
         <ul>
-            <router-link class="sidebar-container__option" v-for="option in options" :key="option" :id="option" :to="{ name: option }" :class="{ 'sidebar-option-selected': option === selectedOption }" @click="selectOption(option)">
+            <router-link class="sidebar-container__option" v-for="option in options" :key="option" :id="option" :to="`/${option.toLowerCase()}`" :class="{ 'sidebar-option-selected': option === selectedOption }" @click="selectOption(option)">
                 <img class="sidebar-container__option__icon" :src="require(`@/assets/${option}.png`)"/>
                 <span class="sidebar-container__option__txt" :style="{ textDecoration: option === selectedOption ? 'underline #396AFF' : 'underline #040930'}">{{option}}</span>
-            </router-link>>
+            </router-link>
         </ul>
         <div class="sidebar-container__user-settings">
             <div class="sidebar-container__user-settings__admin">
@@ -56,7 +56,7 @@ export default {
                 'Contact Details'
             ],
             isUserMenu: false,
-            selectedOption: null,
+            selectedOption: 'Projects',
         };
     },
     methods:{
@@ -70,8 +70,8 @@ export default {
             }
             this.selectedOption = option;
         },
-    }
-}
+    },
+};
 </script>
 
 <style>
