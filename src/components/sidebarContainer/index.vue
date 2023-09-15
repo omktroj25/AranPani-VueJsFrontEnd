@@ -83,5 +83,5 @@ export default {
 </script>
 
 <style>
-@import '@/components/SidebarContainer.scss';
+@import '@/components/sidebarContainer/style.scss';
 </style>

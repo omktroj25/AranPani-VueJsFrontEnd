@@ -22,5 +22,5 @@ export default {
 </script>
 
 <style>
-@import '@/components/Auth.scss';
+@import '@/components/auth/style.scss';
 </style>

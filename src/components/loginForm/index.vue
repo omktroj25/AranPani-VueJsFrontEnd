@@ -46,8 +46,8 @@ export default{
         },
         passwordVisibilityIcon() {
             return this.showPassword
-                        ? require('../assets/eye-icon.png')
-                        : require('../assets/hide-eye-icon.png');
+                        ? require('@/assets/eye-icon.png')
+                        : require('@/assets/hide-eye-icon.png');
         },
         isFormValid() {
             return !this.emailError && !this.passwordError && this.email !== '' && this.password !== '';
@@ -101,5 +101,5 @@ export default{
 </script>
 
 <style>
-@import '@/components/LoginForm.scss';
+@import '@/components/loginForm/style.scss';
 </style>

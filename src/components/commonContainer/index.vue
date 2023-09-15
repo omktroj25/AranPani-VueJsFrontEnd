@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import SidebarContainer from '@/components/SidebarContainer.vue';
-import MainContainer from '@/components/MainContainer.vue';
+import SidebarContainer from '@/components/sidebarContainer/index.vue';
+import MainContainer from '@/components/mainContainer/index.vue';
 export default{
     name: 'CommonContainer',
     components:{
@@ -22,5 +22,5 @@ export default{
 </script>
 
 <style>
-@import '@/components/CommonContainer.scss';
+@import '@/components/commonContainer/style.scss';
 </style>

@@ -21,8 +21,8 @@
 
 .project-container__title__add-project__btn{
     margin-left: .5rem;
-    max-height: 1.4rem;
-    max-width: 1.4rem;
+    max-height: 1.7rem;
+    max-width: 1.7rem;
 }
 
 .project-container__title__suggestions{
@@ -137,6 +137,7 @@
 }
 
 .project-container__entry{
+    position: relative;
     margin: 0rem 2rem;
     padding-top: 2.5rem;
     overflow-y: scroll;
@@ -178,4 +179,12 @@
     border-bottom: .07rem solid #F0F0F0;
 }
 
+.project-container__debounce-loading{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(250,250,250, 0.7);
+}
 
