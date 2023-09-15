@@ -7,29 +7,29 @@
                 <!-- Name input form -->
                 <div class="project-details-component__main-container__info__name-input">
                     <div class="project-details-component__main-container__info__name-input__name">
-                        <input  :disabled="!isEditName" :class="{ 'edit-mode-on__border': isEditName }" id="name" type="text" :value="projectData.name" class="project-details-component__main-container__info__name-input__name__txt" style="font-size: 1.7rem;"/>
-                        <input  :disabled="!isEditName" :class="{ 'edit-mode-on__border': isEditName }" id="temple_name_tamil" type="text" :value="projectData.temple_name_tamil" class="project-details-component__main-container__info__name-input__name__txt"/>
+                        <input  :disabled="!isEditName" :class="{ 'edit-mode-on__border': isEditName }" id="name" type="text" v-model="projectData.name" class="project-details-component__main-container__info__name-input__name__txt" style="font-size: 1.7rem;"/>
+                        <input  :disabled="!isEditName" :class="{ 'edit-mode-on__border': isEditName }" id="temple_name_tamil" type="text" v-model="projectData.temple_name_tamil" class="project-details-component__main-container__info__name-input__name__txt"/>
                     </div>
                     <div class="project-details-component__main-container__info__name-input__edit">
                         <img v-show="isEditName === true ? false : true" @click.prevent="editNameControl" class="project-details-component__main-container__info__name-input__edit__icon" src="@/assets/edit-icon.png"/>
-                        <img v-show="isEditName" class="project-details-component__main-container__info__name-input__edit__control" src="@/assets/done-icon.png"/>
+                        <img v-show="isEditName" @click.prevent="updateName" class="project-details-component__main-container__info__name-input__edit__control" src="@/assets/done-icon.png"/>
                         <img v-show="isEditName" @click.prevent="editNameControl" class="project-details-component__main-container__info__name-input__edit__control" src="@/assets/close-icon.png"/>
                     </div>
                 </div>
                 <!-- Photo upload card -->
                 <div class="project-details-component__main-container__info__card">
                     <div class="main-preview-screen">
-                        <input type="file" accept="image/*" id="image-upload" style="display: none;">
+                        <input type="file" accept="image/*" id="image-upload" @change.prevent="onFileLoad" style="display: none;">
                         <label v-show="projectData.project_attachment_url == null" for="image-upload">
                             <img src="@/assets/main-img.png" alt="Upload Image" class="main-img">
                         </label>
                         <img v-show="projectData.project_attachment_url != null" :src="projectData.project_attachment_url" class="main-img">
                     </div>
                     <div class="sub-preview-screen">
-                        <span v-for="(image,index) in projectData.project_attachments" :key="i">
+                        <span v-for="image in projectData.project_attachments" :key="image.id">
                             <img v-if="image.image_url != projectData.project_attachment_url && image.image_url != null" :src="image.image_url" :id="image.id" @load="imageCount++" class="sub-img">
                         </span>
-                        <input type="file" accept="image/*" id="image-upload" style="display: none;">
+                        <input type="file" accept="image/*" id="image-upload" @change.prevent="onFileLoad" style="display: none;">
                         <label v-show="imageCount < 8" for="image-upload">
                             <img src="@/assets/sub-img.png" alt="Upload Image" class="sub-img">
                         </label>
@@ -41,7 +41,7 @@
                         <p class="project-details-component__main-container__info__details__title__txt">Project Details</p>
                         <div class="project-details-component__main-container__info__details__title__edit">
                             <img v-show="isEditAll === true ? false : true" @click.prevent="editAllControl" class="project-details-component__main-container__info__details__title__edit__icon" src="@/assets/edit-icon.png"/>
-                            <img v-show="isEditAll" class="project-details-component__main-container__info__details__title__edit__control" src="@/assets/done-icon.png"/>
+                            <img v-show="isEditAll" @click.prevent="updateDetails" class="project-details-component__main-container__info__details__title__edit__control" src="@/assets/done-icon.png"/>
                             <img v-show="isEditAll" @click.prevent="editAllControl" class="project-details-component__main-container__info__details__title__edit__control" src="@/assets/close-icon.png"/>
                         </div>
                     </div>
@@ -49,25 +49,25 @@
                         <div class="project-details-component__main-container__info__details__fields__rack">
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="reg_number" class="input-label">Registration Number</label>
-                                <input disabled="true" id="reg_number" type="text" :value="projectData.reg_number" style="color: #3F3F3F;" class="input-field"/>
+                                <input disabled="true" id="reg_number" type="text" v-model="projectData.reg_number" style="color: #3F3F3F;" class="input-field"/>
                             </div>
-                            <!-- <div class="project-details-component__main-container__info__details__fields__rack__input">
+                            <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="start_date" class="input-label">Planned Start Date</label>
-                                <a-date-picker :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="start_date" v-model:value="projectData.start_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select start date" format="DD/MM/YYYY" />
+                                <a-date-picker :disabled="!isEditAll && projectData.status == 'proposed'" :class="{ 'edit-mode-on__border': isEditAll }" id="start_date" v-model="projectData.start_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select start date" format="DD/MM/YYYY" />
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="end_date" class="input-label">Planned End Date</label>
-                                <a-date-picker :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="end_date" v-model:value="projectData.end_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select end date" format="DD/MM/YYYY" />
-                            </div> -->
+                                <a-date-picker :disabled="!isEditAll && projectData.status == 'proposed'" :class="{ 'edit-mode-on__border': isEditAll }" id="end_date" v-model="projectData.end_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select end date" format="DD/MM/YYYY" />
+                            </div>
                         </div>
                         <div class="project-details-component__main-container__info__details__fields__rack">
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="estimated_amt" class="input-label">Estimate Amount</label>
-                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="estimated_amt" :value="projectData.estimated_amt" placeholder="-" type="text" class="input-field"/>
+                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="estimated_amt" v-model="projectData.estimated_amt" placeholder="-" type="text" class="input-field"/>
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="expensed_amt" class="input-label">Expensed Amount</label>
-                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="expensed_amt"  :value="projectData.expensed_amt" placeholder="-" type="text" class="input-field"/>
+                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="expensed_amt"  v-model="projectData.expensed_amt" placeholder="-" type="text" class="input-field"/>
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__progress">
                                 <p style="font-size: .9rem; color: #343C6A;">{{ projectData.completion === null ? '0% Completion' : projectData.completion + '% Completion' }}<span style="font-size: .6rem; color: #7F91B0; margin-left: .5rem;">last update on {{ updateDate }}</span><span style="font-size: .6rem; color: #7F91B0; margin-top: .5rem; margin-bottom: .25rem;">{{ updateMonth }}</span></p>
@@ -78,14 +78,14 @@
                             <label for="incharge_name" class="input-label" style="margin-top: 2rem;">Temple Incharge</label>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <span style="position: relative;">
-                                    <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_name" :value="projectData.incharge_name" type="text" class="input-field" style="font-size: 1rem; padding-left: 2.25rem;">
+                                    <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_name" v-model="projectData.incharge_name" type="text" class="input-field" style="font-size: 1rem; padding-left: 2.25rem;">
                                     <img class="input-field-icon" src="@/assets/name-icon.png"/>
                                 </span>
-                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="temple_incharge_name_tamil" :value="projectData.temple_incharge_name_tamil" type="text" class="input-field" style="font-size: 1rem; padding-left: 2.25rem;"/>
+                                <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="temple_incharge_name_tamil" v-model="projectData.temple_incharge_name_tamil" type="text" class="input-field" style="font-size: 1rem; padding-left: 2.25rem;"/>
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <span style="position: relative;">
-                                    <vue-tel-input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_mobile_number" v-model:value="projectData.incharge_mobile_number" @country-changed="countryChanged" :value="countryCode" class="input-field-phone"></vue-tel-input>
+                                    <!-- <vue-tel-input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_mobile_number" v-model="projectData.incharge_mobile_number" @country-changed="countryChanged" class="input-field-phone"></vue-tel-input> -->
                                     <img class="input-field-icon" src="@/assets/call-icon.png"/>
                                 </span>
                             </div>
@@ -102,24 +102,41 @@
             </div>
             <!-- Document displaying container -->
             <div class="project-details-component__main-container__doc">
-                <!-- Scrap form -->
+                <!-- Scrap & Delete -->
                 <div class="project-details-component__main-container__doc__scrap">
                     <span @click.prevent="openScrapControl" class="project-details-component__main-container__doc__scrap__span"><img class="project-details-component__main-container__doc__scrap__btn" id="scrap" src="@/assets/vertical-menu.png"/></span>
-                    <div @click.prevent="scrapConfirmControl" v-show="openScrap" class="project-details-component__main-container__doc__scrap__drop-down">
+                    <div @click.prevent="scrapConfirmControl" v-show="openScrap && projectData.status != 'scrapped'" class="project-details-component__main-container__doc__scrap__drop-down">
                         <img class="project-details-component__main-container__doc__scrap__drop-down__icon" src="@/assets/trash.png"/>
                         <p class="project-details-component__main-container__doc__scrap__drop-down__txt">Scrap project</p>
                     </div>
-                    <div v-show="scrapConfirm" class="project-details-component__main-container__doc__scrap__confirm">
-                        <form class="project-details-component__main-container__doc__scrap__confirm__form">
+                    <div @click.prevent="scrapConfirmControl" v-show="openScrap && projectData.status == 'scrapped'" class="project-details-component__main-container__doc__scrap__drop-down">
+                        <img class="project-details-component__main-container__doc__scrap__drop-down__icon" src="@/assets/delete.png"/>
+                        <p class="project-details-component__main-container__doc__scrap__drop-down__txt">Delete project</p>
+                    </div>
+                    <!-- Scrap form -->
+                    <div v-show="scrapConfirm && projectData.status != 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="scrapProject">
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-trash.png"/>Scrap project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
-                            <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to scrap the project? the project will be temporarily removed from the platform</p>
+                            <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to the project? the project will be temporarily removed from the platform</p>
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
                                 <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__name">{{ projectData.name }}</p>
-                                <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__location">{{ projectData.location_name }}</p>
+                                <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__location">{{ projectData.location }}</p>
                             </div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__reason">Reason</p>
-                            <textarea id="scrapReason" class="project-details-component__main-container__doc__scrap__confirm__form__reason-input"></textarea>
+                            <textarea id="scrapReason" v-model="scrapReason" class="project-details-component__main-container__doc__scrap__confirm__form__reason-input"></textarea>
                             <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Scrap project</button>
+                        </form>
+                    </div>
+                    <!-- Delete form -->
+                    <div v-show="scrapConfirm && projectData.status == 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="deleteProject">
+                            <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-delete.png"/>Delete project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
+                            <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to delete the project? the project will be permanently removed from the platform</p>
+                            <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
+                                <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__name">{{ projectData.name }}</p>
+                                <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__location">{{ projectData.location }}</p>
+                            </div>
+                            <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Delete project</button>
                         </form>
                     </div>
                 </div>
@@ -128,8 +145,8 @@
                     <span style="display: flex; justify-content: space-between;">
                         <p class="project-details-component__main-container__doc__status__title">Status</p>
                         <span v-show="isConfirm">
-                            <img class="project-details-component__main-container__doc__status__title__control" src="@/assets/done-icon.png"/>
-                            <img @click="isConfirm = false" class="project-details-component__main-container__doc__status__title__control" src="@/assets/close-icon.png"/>
+                            <img @click="updateStatus(nextStatus)" class="project-details-component__main-container__doc__status__title__control" src="@/assets/done-icon.png"/>
+                            <img @click="isConfirm = false; this.getProjectDetailsById()" class="project-details-component__main-container__doc__status__title__control" src="@/assets/close-icon.png"/>
                         </span>
                     </span>
                     <p class="project-details-component__main-container__doc__status__description">Configure the status of the project</p>
@@ -153,16 +170,16 @@
                     </div>
                     <!-- Planned status form -->
                     <div v-show="plannedForm" class="project-details-component__main-container__doc__status__planned">
-                        <form class="project-details-component__main-container__doc__status__planned__form">
-                            <div class="project-details-component__main-container__doc__status__planned__form__title"><p style="display: flex; align-items: center;">Update Project Details</p><img @click.prevent="plannedForm = false" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
+                        <form class="project-details-component__main-container__doc__status__planned__form" @submit.prevent="setPlan">
+                            <div class="project-details-component__main-container__doc__status__planned__form__title"><p style="display: flex; align-items: center;">Update Project Details</p><img @click.prevent="plannedForm = false; this.getProjectDetailsById()" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <div class="project-details-component__main-container__doc__status__planned__form__date">
                                 <div class="project-details-component__main-container__doc__status__planned__form__date__input">
                                     <label class="plan-input-label">Planned Start Date</label>
-                                    <a-date-picker style="background-color: white;" class="plan-input-field" placeholder="Select start date" format="DD/MM/YYYY" />
+                                    <a-date-picker style="background-color: white;" v-model="planStartDate" class="plan-input-field" placeholder="Select start date" format="DD/MM/YYYY" />
                                 </div>
                                 <div class="project-details-component__main-container__doc__status__planned__form__date__input">
                                     <label class="plan-input-label">Planned End Date</label>
-                                    <a-date-picker style="background-color: white;" class="plan-input-field" placeholder="Select end date" format="DD/MM/YYYY" />
+                                    <a-date-picker style="background-color: white;" v-model="planEndDate" class="plan-input-field" placeholder="Select end date" format="DD/MM/YYYY" />
                                 </div>
                             </div>
                             <label class="plan-input-label">Estimated Amount</label>
@@ -175,12 +192,12 @@
                     </div>
                     <!-- Completed status form -->
                     <div v-show="completeForm" class="project-details-component__main-container__doc__status__completed">
-                        <form class="project-details-component__main-container__doc__status__completed__form">
-                            <div class="project-details-component__main-container__doc__status__completed__form__title"><p style="display: flex; align-items: center;">Complete Project</p><img @click.prevent="completeForm = false" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
+                        <form class="project-details-component__main-container__doc__status__completed__form" @submit.prevent="updateStatus(nextStatus)">
+                            <div class="project-details-component__main-container__doc__status__completed__form__title"><p style="display: flex; align-items: center;">Complete Project</p><img @click.prevent="completeForm = false;  this.getProjectDetailsById()" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <p class="project-details-component__main-container__doc__status__completed__form__description">Once page is moved to completed, you cannot edit anything. Please ensure data is fully correct</p>
                             <div class="project-details-component__main-container__doc__status__completed__form__project-details">
                                 <p class="project-details-component__main-container__doc__status__completed__form__project-details__name">{{ projectData.name }}</p>
-                                <p class="project-details-component__main-container__doc__status__completed__form__project-details__location">{{ projectData.location_name }}</p>
+                                <p class="project-details-component__main-container__doc__status__completed__form__project-details__location">{{ projectData.location }}</p>
                             </div>
                             <button type="submit" class="project-details-component__main-container__doc__status__completed__update-btn">Confirm</button>
                         </form>
@@ -194,7 +211,7 @@
                         <img v-show="isEditMap" @click.prevent="editMapControl" class="project-details-component__main-container__info__name-input__edit__control" src="@/assets/close-icon.png"/>
                     </div>
                     <div class="project-details-component__main-container__doc__location__name">
-                        <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location_name" type="text" class="project-details-component__main-container__doc__location__name__txt" style="font-size: 1.6rem;"/>
+                        <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location" type="text" class="project-details-component__main-container__doc__location__name__txt" style="font-size: 1.6rem;"/>
                         <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location_name_tamil" type="text" class="project-details-component__main-container__doc__location__name__txt"/>
                     </div>
                     
@@ -209,6 +226,7 @@ import ProjectService from '@/services/ProjectService';
 import { ref } from 'vue';
 import { VueTelInput } from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
+import dayjs from 'dayjs';
 // import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 export default{
     name: 'ProjectDetails',
@@ -230,9 +248,13 @@ export default{
         const selectStatus = ref(false);
         const openScrap = ref(false);
         const scrapConfirm = ref(false);
+        const scrapReason = ref('');
         const completeForm = ref(false);
         const isConfirm = ref(false);
         const plannedForm = ref(false);
+        const planStartDate = ref();
+        const planEndDate = ref();
+        const estimatedPlanAmount = ref();
         const updateDate = ref();
         const updateMonth = ref();
         const nextStatus = ref('');
@@ -261,7 +283,6 @@ export default{
             };
 
         return{
-            // locale,
             projectId,
             projectData,
             nextStatus,
@@ -273,7 +294,11 @@ export default{
             isComplete,
             selectStatus,
             scrapConfirm,
+            scrapReason,
             plannedForm,
+            planStartDate,
+            planEndDate,
+            estimatedPlanAmount,
             completeForm,
             isConfirm,
             openScrap,
@@ -295,19 +320,107 @@ export default{
                 this.setNextStatus(this.projectData.status);
             }
         },
+        async updateName(){
+            this.editNameControl();
+            const newData = {
+                name: this.projectData.name,
+                temple_name_tamil: this.projectData.temple_name_tamil,
+            };
+            const response = await ProjectService.updateProject(this.projectId, newData);
+            if(response && response.status == 200){
+                this.getProjectDetailsById();
+            }
+        },
+        async updateDetails(){
+            this.editAllControl();
+            const newData ={
+                end_date: this.formatDate(this.projectData.end_date),
+                estimated_amt: this.projectData.estimated_amt,
+                expensed_amt: this.projectData.expensed_amt,
+                incharge_mobile_number: this.countryCode+this.projectData.incharge_mobile_number,
+                incharge_name: this.projectData.incharge_name,
+                reg_number: this.projectData.reg_number,
+                start_date: this.formatDate(this.projectData.start_date),
+                temple_incharge_name_tamil: this.projectData.temple_incharge_name_tamil,
+            }
+            const response = await ProjectService.updateProject(this.projectId, newData);
+            if(response && response.status == 200){
+                this.getProjectDetailsById();
+            }
+        },
+        async onFileLoad(event){
+            const selectedImage = event.target.files[0];
+            const response = await ProjectService.uploadImage(this.projectId,selectedImage);
+            if(response && response.status == 200){
+                this.getProjectDetailsById();
+            }
+        },
+        async scrapProject(){
+            const newData = {
+                reason: this.scrapReason,
+                status: this.nextStatus,
+            }
+            const response = await ProjectService.updateProject(this.projectId, newData);
+            if(response && response.status == 200){
+                this.scrapClose();
+                this.getProjectDetailsById();
+            }
+        },
+        async deleteProject(){
+            const response = await ProjectService.deleteProject(this.projectId);
+            if(response && response.status == 204){
+                this.scrapClose();
+                this.goToProjects();
+            }
+        },
+        async setPlan(){
+            const newData = {
+                end_date: this.planStartDate,
+                estimated_amt: this.estimatedPlanAmount,
+                start_date: this.planEndDate,
+                status: this.nextStatus,
+            }
+            const response = await ProjectService.updateProject(this.projectId, newData);
+            if(response && response.status == 200){
+                this.plannedForm = false;
+                this.getProjectDetailsById();
+            }
+        },
+        async updateStatus(newStatus){
+            const newData = {
+                status: newStatus.toLowerCase(),
+            }
+            const response = await ProjectService.updateProject(this.projectId, newData);
+            if(response && response.status == 200){
+                this.isConfirm = false;
+                this.completeForm = false;
+                this.getProjectDetailsById();
+            }
+        },
         changeStatus(){
-            console.log(this.nextStatus);
             if(this.nextStatus == 'proposed'){
+                this.projectData.status = this.nextStatus;
+                this.setStatusStyles(this.projectData.status);
                 this.isConfirm = true;
+                this.selectStatus = false;
             }
             else if(this.nextStatus == 'planned'){
+                this.projectData.status = this.nextStatus;
+                this.setStatusStyles(this.projectData.status);
                 this.plannedForm = true;
+                this.selectStatus = false;
             }
             else if(this.nextStatus == 'active'){
+                this.projectData.status = this.nextStatus;
+                this.setStatusStyles(this.projectData.status);
                 this.isConfirm = true;
+                this.selectStatus = false;
             }
             else if(this.nextStatus == 'completed'){
+                this.projectData.status = this.nextStatus;
+                this.setStatusStyles(this.projectData.status);
                 this.completeForm = true;
+                this.selectStatus = false;
             }
         },
         setNextStatus(status){
@@ -391,8 +504,8 @@ export default{
             this.scrapConfirm = !this.scrapConfirm;
         },
         scrapClose(){
-            this.scrapConfirmControl();
-            this.openScrapControl();
+            this.scrapConfirm = false;
+            this.openScrap = false;
         },
         countryChanged(country){
             this.countryCode = "+"+country.dialCode;
@@ -401,7 +514,10 @@ export default{
             this.imageCount++;
             console.log(this.imageCount)
             return true;
-        }
+        },
+        formatDate(inputDate) {
+            return dayjs(inputDate).format('DD/MM/YYYY');
+        },
     },
     watch:{
         isEditAll(){
