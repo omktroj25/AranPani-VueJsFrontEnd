@@ -148,7 +148,72 @@ export default{
             const response = await Axios.delete(url,{
                 headers: authData,
             });
-            Notify.createNotification('success',`Success`, 'Project scrapped successfully');
+            Notify.createNotification('success','Success', 'Project scrapped successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
+
+    // To attach the blog to the activity form
+    async attachBlog(image: any){
+        try{
+            const authData = Store.state.authHeaderData;
+            const url = 'https://api.uat.aranpani.in/api/v1/admin/project_blog_attachments';
+            const formData = new FormData();
+            formData.append('project_blog_attachment[attachment]', image);
+            const response = await Axios.post(url,formData,{
+                headers: {
+                    ...authData,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            Notify.createNotification('success','Success', 'Blog attached successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
+
+    // To upload the activity of the temple
+    async uploadActivity(projectId: number, projectData: any){
+        try{
+            const authData = Store.state.authHeaderData;
+            const url = `${API_URL}/${projectId}/project_blogs`;
+            const response = await Axios.post(url,projectData,{
+                headers: authData,
+            });
+            Notify.createNotification('success',`Success`, 'Blog uploaded successfully');
             return response;
         }
         catch (error: any) {
@@ -170,4 +235,33 @@ export default{
         }
     },
     
+    // To update the activity of the temple
+    async updateActivityBlog(projectId: number, projectData: any, activityId: number){
+        try{
+            const authData = Store.state.authHeaderData;
+            const url = `${API_URL}/${projectId}/project_blogs/${activityId}`;
+            const response = await Axios.put(url,projectData,{
+                headers: authData,
+            });
+            Notify.createNotification('success',`Success`, 'Blog updated successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
 };

@@ -53,11 +53,11 @@
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="start_date" class="input-label">Planned Start Date</label>
-                                <a-date-picker :disabled="!isEditAll && projectData.status == 'proposed'" :class="{ 'edit-mode-on__border': isEditAll }" id="start_date" v-model="projectData.start_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select start date" format="DD/MM/YYYY" />
+                                <input type="date" :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="start_date"  v-model="projectData['start_date']" style="background-color: white;" class="input-field" placeholder="Select start date" format="DD/MM/YYYY" />
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <label for="end_date" class="input-label">Planned End Date</label>
-                                <a-date-picker :disabled="!isEditAll && projectData.status == 'proposed'" :class="{ 'edit-mode-on__border': isEditAll }" id="end_date" v-model="projectData.end_date" :locale="locale" style="background-color: white;" class="input-field" placeholder="Select end date" format="DD/MM/YYYY" />
+                                <input type="date" :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="end_date" v-model="projectData['end_date']" style="background-color: white;" class="input-field" placeholder="Select end date" format="DD/MM/YYYY" />
                             </div>
                         </div>
                         <div class="project-details-component__main-container__info__details__fields__rack">
@@ -69,7 +69,7 @@
                                 <label for="expensed_amt" class="input-label">Expensed Amount</label>
                                 <input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="expensed_amt"  v-model="projectData.expensed_amt" placeholder="-" type="text" class="input-field"/>
                             </div>
-                            <div class="project-details-component__main-container__info__details__fields__rack__progress">
+                            <div v-show="projectData.status != 'proposed'" class="project-details-component__main-container__info__details__fields__rack__progress">
                                 <p style="font-size: .9rem; color: #343C6A;">{{ projectData.completion === null ? '0% Completion' : projectData.completion + '% Completion' }}<span style="font-size: .6rem; color: #7F91B0; margin-left: .5rem;">last update on {{ updateDate }}</span><span style="font-size: .6rem; color: #7F91B0; margin-top: .5rem; margin-bottom: .25rem;">{{ updateMonth }}</span></p>
                                 <a-progress :percent="progressRound(projectData.completion)" size="small" strokeColor="#83b85c" style="width: 12rem; margin: .5rem 0rem;"></a-progress>
                             </div>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="project-details-component__main-container__info__details__fields__rack__input">
                                 <span style="position: relative;">
-                                    <!-- <vue-tel-input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_mobile_number" v-model="projectData.incharge_mobile_number" @country-changed="countryChanged" class="input-field-phone"></vue-tel-input> -->
+                                    <vue-tel-input :disabled="!isEditAll" :class="{ 'edit-mode-on__border': isEditAll }" id="incharge_mobile_number" mode='international'  v-model="projectData.incharge_mobile_number" class="input-field-phone"></vue-tel-input>
                                     <img class="input-field-icon" src="@/assets/call-icon.png"/>
                                 </span>
                             </div>
@@ -93,11 +93,9 @@
                     </form>
                 </div>
                 <!-- Activity form -->
-                <div class="project-details-component__main-container__info__activity">
-                    <p class="project-details-component__main-container__info__activity__title">Activity<span><img src="@/assets/plus-icon.png" id="addActivity" class="project-details-component__main-container__info__activity__title__add-icon"/></span></p>
-                    <div>
-
-                    </div>
+                <div v-show="projectData.status !== 'proposed' && projectData.status !== 'planned'" class="project-details-component__main-container__info__activity">
+                    <p class="project-details-component__main-container__info__activity__title">Activity<span><img src="@/assets/plus-icon.png" id="addActivity" class="project-details-component__main-container__info__activity__title__add-icon" @click.prevent="newActivity = !newActivity"/></span></p>
+                    <ActivityForm :projectData="projectData" :newActivity="newActivity" @newActivity="newActivity = $event" @reloadProjectDetails="getProjectDetailsById()"/>
                 </div>
             </div>
             <!-- Document displaying container -->
@@ -175,11 +173,11 @@
                             <div class="project-details-component__main-container__doc__status__planned__form__date">
                                 <div class="project-details-component__main-container__doc__status__planned__form__date__input">
                                     <label class="plan-input-label">Planned Start Date</label>
-                                    <a-date-picker style="background-color: white;" v-model="planStartDate" class="plan-input-field" placeholder="Select start date" format="DD/MM/YYYY" />
+                                    <input type="date" style="background-color: white;" v-model="planStartDate" class="plan-input-field" placeholder="Select start date" format="DD/MM/YYYY" />
                                 </div>
                                 <div class="project-details-component__main-container__doc__status__planned__form__date__input">
                                     <label class="plan-input-label">Planned End Date</label>
-                                    <a-date-picker style="background-color: white;" v-model="planEndDate" class="plan-input-field" placeholder="Select end date" format="DD/MM/YYYY" />
+                                    <input type="date" style="background-color: white;" v-model="planEndDate" class="plan-input-field" placeholder="Select end date" format="DD/MM/YYYY" />
                                 </div>
                             </div>
                             <label class="plan-input-label">Estimated Amount</label>
@@ -214,7 +212,11 @@
                         <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location" type="text" class="project-details-component__main-container__doc__location__name__txt" style="font-size: 1.6rem;"/>
                         <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location_name_tamil" type="text" class="project-details-component__main-container__doc__location__name__txt"/>
                     </div>
-                    
+                    <div id="google-map">
+                        <GoogleMap api-key="" style="width: 100%; height: 350px" :center="center" :zoom="15">
+                            <Marker :options="{ position: center }" />
+                        </GoogleMap>
+                    </div>
                 </div>
             </div>
         </div>
@@ -224,15 +226,18 @@
 <script>
 import ProjectService from '@/services/ProjectService';
 import { ref } from 'vue';
-// import { VueTelInput } from 'vue-tel-input';
-// import 'vue-tel-input/vue-tel-input.css';
-import dayjs from 'dayjs';
-// import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
+import ActivityForm from '@/components/projectDetails/activityForm/index.vue';
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/vue-tel-input.css'
+import { GoogleMap, Marker } from "vue3-google-map";
 export default{
     name: 'ProjectDetails',
-    // components:{
-    //     VueTelInput,
-    // },
+    components:{
+        ActivityForm,
+        VueTelInput,
+        GoogleMap,
+        Marker,
+    },
     mounted(){
         this.getProjectId();
         this.getProjectDetailsById(this.projectId);
@@ -240,7 +245,6 @@ export default{
     setup(){
         const projectId = ref();
         const projectData = ref({});
-        const countryCode = ref("");
         const isEditAll = ref(false);
         const isEditName = ref(false);
         const isEditMap = ref(false);
@@ -259,6 +263,8 @@ export default{
         const updateMonth = ref();
         const nextStatus = ref('');
         const imageCount = ref(0);
+        const center = ref({});
+        const newActivity = ref(false);
         const statusType = {
             scrapped: {
                 txt: '#98A7BF',
@@ -281,13 +287,11 @@ export default{
                 bg: '#F0F6EB'
             },
             };
-
         return{
             projectId,
             projectData,
             nextStatus,
             statusType,
-            countryCode,
             isEditAll,
             isEditName,
             isEditMap,
@@ -305,6 +309,8 @@ export default{
             updateDate,
             updateMonth,
             imageCount,
+            center,
+            newActivity,
         }
     },
     methods:{
@@ -318,6 +324,13 @@ export default{
                 this.projectData = response.data.project;
                 this.updateProgressDate(this.projectData.updated_at);
                 this.setNextStatus(this.projectData.status);
+                this.projectData['incharge_mobile_number'] = (this.projectData['incharge_mobile_number'] === null ? '' : this.projectData['incharge_mobile_number']);
+                this.projectData['start_date'] = this.formatDate(this.projectData['start_date']);
+                this.projectData['end_date'] = this.formatDate(this.projectData['end_date']);
+                this.center = {
+                    lat: this.projectData.lat,
+                    lng: this.projectData.long,
+                };
             }
         },
         async updateName(){
@@ -334,13 +347,13 @@ export default{
         async updateDetails(){
             this.editAllControl();
             const newData ={
-                end_date: this.formatDate(this.projectData.end_date),
+                end_date: this.projectData.end_date,
                 estimated_amt: this.projectData.estimated_amt,
                 expensed_amt: this.projectData.expensed_amt,
-                incharge_mobile_number: this.countryCode+this.projectData.incharge_mobile_number,
+                incharge_mobile_number: this.projectData.incharge_mobile_number,
                 incharge_name: this.projectData.incharge_name,
                 reg_number: this.projectData.reg_number,
-                start_date: this.formatDate(this.projectData.start_date),
+                start_date: this.projectData.start_date,
                 temple_incharge_name_tamil: this.projectData.temple_incharge_name_tamil,
             }
             const response = await ProjectService.updateProject(this.projectId, newData);
@@ -350,9 +363,11 @@ export default{
         },
         async onFileLoad(event){
             const selectedImage = event.target.files[0];
-            const response = await ProjectService.uploadImage(this.projectId,selectedImage);
-            if(response && response.status == 200){
-                this.getProjectDetailsById();
+            if(selectedImage){
+                const response = await ProjectService.uploadImage(this.projectId,selectedImage);
+                if(response && response.status == 200){
+                    this.getProjectDetailsById();
+                }
             }
         },
         async scrapProject(){
@@ -507,16 +522,20 @@ export default{
             this.scrapConfirm = false;
             this.openScrap = false;
         },
-        countryChanged(country){
-            this.countryCode = "+"+country.dialCode;
+        formatDate(timestamp) {
+            if(timestamp !== null){
+                const dateObj = new Date(timestamp);
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+            return null;
         },
-        count(){
-            this.imageCount++;
-            console.log(this.imageCount)
-            return true;
-        },
-        formatDate(inputDate) {
-            return dayjs(inputDate).format('DD/MM/YYYY');
+        updateCenter(event) {
+            console.log(event);
+            // Update the marker position when the map is moved
+            console.log(this.center);
         },
     },
     watch:{
