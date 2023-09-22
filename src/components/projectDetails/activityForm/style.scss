@@ -1,5 +1,26 @@
 /*  Activity form style */
 
+.project-details-component__main-container__info__activity{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-component__main-container__info__activity__title{
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__info__activity__title__add-icon{
+    margin-left: .5rem;
+    max-width: 1.4rem;
+    max-height: 1.4rem;
+    cursor: pointer;
+}
+
 .project-details-component__main-container__info__activity__container{
     display: flex;
     flex-direction: column;
