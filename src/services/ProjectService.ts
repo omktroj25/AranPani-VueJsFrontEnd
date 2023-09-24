@@ -301,4 +301,33 @@ export default{
         }
     },
 
+    // To create the new project
+    async createNewProject(projectData: any){
+        try{
+            const authData = Store.state.authHeaderData;
+            const response = await Axios.post(API_URL,projectData,{
+                headers: authData,
+            });
+            Notify.createNotification('success',`Success`, 'Project created successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
+
 };

@@ -23,6 +23,12 @@
     margin-left: .5rem;
     max-height: 1.7rem;
     max-width: 1.7rem;
+    transition: transform .5s;
+    cursor: pointer;
+}
+
+.project-container__title__add-project__btn:hover {
+    transform: rotate(180deg);
 }
 
 .project-container__title__suggestions{

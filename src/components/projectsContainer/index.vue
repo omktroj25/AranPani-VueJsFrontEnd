@@ -1,8 +1,9 @@
 <template>
     <div class="project-container" v-show="isProjectContainer">
         <div class="project-container__title">
-            <p class="project-container__title__project">Project<img class="project-container__title__add-project__btn" src="@/assets/add-icon.png"/></p>
+            <p class="project-container__title__project">Project<img @click.prevent="createNew = true" class="project-container__title__add-project__btn" src="@/assets/add-icon.png"/></p>
             <p class="project-container__title__suggestions"><img class="project-container__title__suggestions__icon" src="@/assets/project-suggest.png"/>Project Suggestions<span class="project-container__title__suggestions__icon__count">0</span></p>
+            <CreateProjectForm v-show="createNew" @closeForm="createNew = $event" @reloadProject="selectStatus()"/>
         </div>
         <div class="project-container__navbar">
             <ul>
@@ -48,10 +49,14 @@
 <script>
 import { ref, computed } from 'vue';
 import ProjectService from '@/services/ProjectService';
+import CreateProjectForm from '@/components/createProjectForm/index.vue';
 import { Empty } from 'ant-design-vue';
 import Debounce from 'lodash/debounce';
 export default{
     name: 'ProjectsSection',
+    components:{
+        CreateProjectForm,
+    },
     beforeCreate() {
         this.debouncedSelectStatus = Debounce((selectedStatusValue, searchValue, pageValue) => {
             this.selectStatus(selectedStatusValue, searchValue, pageValue);
@@ -73,6 +78,7 @@ export default{
         const projectCount = ref(0);
         const projectData = ref({});
         const selectedStatus =ref('Proposed');
+        const createNew = ref(false);
         const projStatusNav=[
                 'All',
                 'Proposed',
@@ -138,6 +144,7 @@ export default{
             startEntry,
             endEntry,
             totalPage,
+            createNew,
         };
     },
     methods:{
