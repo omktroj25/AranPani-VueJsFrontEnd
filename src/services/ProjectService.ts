@@ -13,7 +13,7 @@ export default{
         try{
             if (!['Proposed', 'Planned', 'Active', 'Completed', 'Scrapped'].includes(selectedStatus)) {
                 selectedStatus = '';
-            }
+            } 
             const authData = Store.state.authHeaderData; 
             const response = await Axios.get(API_URL,{
                 params:{
