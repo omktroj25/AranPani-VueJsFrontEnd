@@ -1,5 +1,4 @@
 <template>
-    <span v-if="donorData != null ? donorDataDetails = donorData : donorDataDetails = {}"></span>
     <div class="donor-details__main-content__self__details">
         <div class="donor-details__main-container__self__title" :style="isEditAll ? 'justify-content: space-between' : 'justify-content: flex-start'">
             <p class="">Profile Details</p>
@@ -97,7 +96,7 @@ import { ref } from 'vue';
 // import DonorService from '@/services/DonorService';
 import MetaService from '@/services/MetaService';
 export default{
-    name: 'DonorProfileDetails',
+    name: 'ProfileDetails',
     props:{
         donorData:{
             type: Object,
@@ -182,13 +181,20 @@ export default{
             },
         },
     },
+    watch:{
+        donorData(){
+            if(this.donorData !== null){
+                this.donorDataDetails = this.donorData;
+            }
+        }
+    }
 }
 </script>
 
 <style>
-@import '@/components/donorDetails/donorProfileDetails/style.scss';
+@import '@/components/donorDetails/profileDetails/style.scss';
 
-.ant-select-selector{
+.donor-details__main-content__self__details .ant-select-selector{
     background: white !important;
     border: none !important;
     border-radius: 0 !important;

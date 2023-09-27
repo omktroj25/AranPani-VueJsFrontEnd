@@ -1,6 +1,5 @@
 <template>
     <div class="doc-form">
-        <span v-if="projectData !== null ? previewDoc = projectData.project_documents : previewDoc = []"></span>
         <p class="doc-form__title">Documents</p>
         <p class="doc-form__description">Add documents related to project</p>
         <div v-for="doc in previewDoc" :key="doc.id" class="doc-form__preview">
@@ -40,6 +39,13 @@ export default{
                 if(response && response.status == 200){
                     this.previewDoc.push(response.data.project_document);
                 }
+            }
+        }
+    },
+    watch:{
+        projectData(){
+            if(this.projectData !== null){
+                this.previewDoc = this.projectData.project_documents;
             }
         }
     }
