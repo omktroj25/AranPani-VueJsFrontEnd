@@ -1,0 +1,16 @@
+/* App common-container page styles it is common for sidebar and the main content*/
+.common-container{
+    max-width: 100vw;
+    max-height: 100vh;
+    display: flex;
+}
+
+.common-container__sidebar-container{
+    width: 100%;
+    height: 100%;
+}
+
+.common-container__main-content-container{
+    width: 100%;
+    height: 100%;
+}

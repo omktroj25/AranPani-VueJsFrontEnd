@@ -1,0 +1,34 @@
+/* To over ride the design style */
+
+/*  International code input in projectDetails component */
+.vti__dropdown{
+    display: none;
+    padding: 0.4375rem 0rem;
+}
+
+.vti__flag{
+    margin: 0rem 0.3rem;
+}
+
+.vti__input{
+    background-color: white;
+}
+
+.vti__input::placeholder {
+    content: "";
+    opacity: 0;   
+}
+
+.vti__dropdown-item{
+    font-size: .9rem;
+}
+
+.vti__dropdown-item strong{
+    font-weight: 400;
+}
+
+.vti__dropdown-list{
+    width: 12.95rem;
+    min-height: 50vh;
+    overflow-x: hidden;
+}
