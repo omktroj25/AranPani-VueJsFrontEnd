@@ -1,15 +1,15 @@
 <template>
-    <form class="auth__container__login-component__form" @submit.prevent="login">
+    <form class="auth__container__login-component__form" @submit.prevent="loginUser">
         <p class="auth__container__login-component__form__title">Login to admin portal</p>
         <div class="auth__container__login-component__form__title__email">
             <label for="email" class="input-label">Email ID</label>
-            <input id="email" type="email" v-model="email" @input="validateEmail" placeholder="Enter email"/>
+            <input id="email" type="email" v-model="email" @input.prevent="validateEmail" placeholder="Enter email"/>
             <p for="email" class="error-input" v-show="emailError">{{ emailErrorMessage }}</p>
         </div>
         <div class="auth__container__login-component__form__title__password">
             <label for="password" class="input-label">Password</label>
-            <input id="password" :type="passwordFieldType" v-model="password" @input="validPassword" placeholder="Enter password" style="width: 100%;"/>
-            <img @click="togglePasswordVisibility" :src="passwordVisibilityIcon" class="view-password"/>
+            <input id="password" :type="passwordFieldType" v-model="password" @input.prevent="validPassword" placeholder="Enter password" style="width: 100%;"/>
+            <img @click.prevent="togglePasswordVisibility" :src="passwordVisibilityIcon" class="view-password"/>
             <p for="password" class="error-input" v-show="passwordError">{{ passwordErrorMessage }}</p>
         </div>
         <p class="forget-password">Forget Password ?</p>
@@ -18,18 +18,26 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { ref } from 'vue';
+import AuthService from '@/services/AuthService';
 export default{
     name: 'LoginForm',
-    data() {
+    setup() {
+        const email = ref('');
+        const emailError = ref(false);
+        const emailErrorMessage = ref('');
+        const password = ref('');
+        const passwordError = ref(false);
+        const passwordErrorMessage = ref('');
+        const showPassword = ref('');
     return {
-        email: '',
-        emailError: false,
-        emailErrorMessage: '',
-        password: '',
-        passwordError: false,
-        passwordErrorMessage: '',
-        showPassword: false,
+        email,
+        emailError,
+        emailErrorMessage,
+        password,
+        passwordError,
+        passwordErrorMessage,
+        showPassword,
     };
     },
     computed: {
@@ -38,8 +46,8 @@ export default{
         },
         passwordVisibilityIcon() {
             return this.showPassword
-                        ? require('../assets/eye-icon.png')
-                        : require('../assets/hide-eye-icon.png');
+                        ? require('@/assets/eye-icon.png')
+                        : require('@/assets/hide-eye-icon.png');
         },
         isFormValid() {
             return !this.emailError && !this.passwordError && this.email !== '' && this.password !== '';
@@ -82,54 +90,16 @@ export default{
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword;
         },
-        async login() {
-            // Create a data object to send in the request
-            const requestData = {
-                user: {
-                email: this.email,
-                password: this.password,
-                permissions: []
-                }
-            };
-            const maxRetries = 3; 
-            let retries = 0;
-            while (retries < maxRetries) {
-                try {
-                const response = await axios.post('https://api.uat.aranpani.in/api/v1/users/sign_in', requestData);
-                // Handle the successful response here
-                console.log('Login Successful');
-                console.log(response);
-                    if(response.status == 200){
-                        alert("User logged in successfully");
-                    }
-                return;
-                } catch (error) {
-                    if(error.response.status == 401){
-                        alert("Unauthorized user");
-                        return;
-                    }
-                    else if(error.response.status == 500){
-                        alert("Internal server error");
-                        return;
-                    }
-                    else{
-                        retries++;
-                        if (retries < maxRetries) {
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                        } else {
-                            console.error('Max retries reached. Unable to login.');
-                            return;
-                        }
-                    }
-                    console.error('Login Error');
-                    console.error(error);
-                }
+        async loginUser() {
+            if(!(await AuthService.login(this.email,this.password))){
+                this.email = '';
+                this.password = '';
             }
-        }
+        },
     },
 };
 </script>
 
 <style>
-@import '@/components/LoginForm.scss';
+@import '@/components/loginForm/style.scss';
 </style>

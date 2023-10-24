@@ -1,0 +1,813 @@
+/* Project details style sheet */
+.project-details-component{
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.project-details-component__main-container{
+    display: flex;
+    margin: 2rem;
+}
+
+.project-details-component__back-project{
+    display: flex;
+    cursor: pointer;
+    width: 5rem;
+    align-items: center;
+    justify-content: start;
+    margin: 3.5rem 2rem 0rem 2rem;
+    font-size: .9rem;
+    font-weight: 400;
+    color: #7E90B0;
+
+}
+
+.project-details-component__back-project__img{
+    margin-right: .5rem;
+    max-width: 1.4rem;
+    max-height: 1rem;
+}
+
+.project-details-component__main-container__info{
+    display: flex;
+    flex-direction: column;
+    margin: 0rem .5rem;
+    width: 62%;
+}
+
+.project-details-component__main-container__info__name-input{
+    display: flex;
+    justify-content: space-between;
+    min-height: 6.5rem;
+}
+
+.project-details-component__main-container__info__name-input__name{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.project-details-component__main-container__info__name-input__name__txt{
+    background-color: #FFFFFF;
+    color: #343C6A;
+    line-height: 1.5715;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0rem .5rem;
+    margin-bottom: .5rem;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}
+
+.project-details-component__main-container__info__name-input__name__txt:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
+
+.project-details-component__main-container__info__name-input__edit{
+    display: flex;
+    margin-left: .5rem;
+}
+
+.project-details-component__main-container__info__name-input__edit__icon{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    margin-right: 6rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__info__name-input__edit__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__info__card{
+    display: flex;
+    border: 0.3125rem solid #f7f7f7;
+    margin-bottom: 0.75rem;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    width: 100%;
+    min-height: 16rem;
+}
+
+.main-preview-screen{
+    height: 12.9rem;
+    width: 12.9rem;
+}
+
+.main-img{
+    height: 12rem;
+    width: 12.9rem;
+    margin: 0.5rem 0rem;
+    border-radius: 1rem;
+}
+
+.sub-preview-screen{
+    height: 12.9rem;
+    width: 27rem;
+}
+
+.sub-img{
+    height: 5.5rem;
+    width: 6rem;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.project-details-component__main-container__info__card__decorate{
+    background-color: #EBF0FF;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.project-details-component__main-container__info__details{
+    display: flex;
+    flex-direction: column;
+    border: 0.3125rem solid #f7f7f7;
+    margin-bottom: 0.75rem;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    width: 100%;
+    min-height: 30rem;
+}
+
+.project-details-component__main-container__info__details__title{
+    display: flex;
+
+}
+
+.project-details-component__main-container__info__details__title__txt{
+    margin-bottom: 0.5em;
+    margin-right: 1.25rem;
+    font-size: 1em;
+    font-weight: 400;
+    color: #343C6A;
+    line-height: 1.8rem;
+    width: 15%;
+}
+
+.project-details-component__main-container__info__details__title__edit{
+    display: flex;
+    margin-left: .5rem
+}
+
+.project-details-component__main-container__info__details__title__edit__icon{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    margin-top: 2.2rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__info__details__title__edit__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__info__details__fields{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-component__main-container__info__details__fields__rack{
+    display: flex;
+    min-height: 7rem;
+}
+
+.project-details-component__main-container__info__details__fields__rack__input{
+    display: flex;
+    flex-direction: column; 
+    margin-top: 2rem;
+}
+
+.input-label{
+    font-size: 0.8125rem;
+    color: #7d979b;
+    width: 12.95rem;
+    margin: .25rem .5rem .25rem 0rem;
+}
+
+.input-field{
+    background-color: white;
+    font-size: 1.25rem;
+    width: 12.95rem;
+    color: black;
+    line-height: 2rem;
+    margin: .25rem .5rem .25rem 0rem;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}
+
+.input-field:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
+
+.input-field-phone{
+    padding-left: 1.4rem;
+    background-color: white;
+    font-size: 1.25rem;
+    width: 12.95rem;
+    color: black;
+    min-height: 2.3rem;
+    margin: .25rem .5rem .25rem 0rem;
+    border: none;
+    outline: none;
+}
+
+.input-field-phone:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
+
+.project-details-component__main-container__info__details__fields__rack__progress{
+    margin: .5rem 0rem;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0rem .25rem 1.5rem #3E3F5E0F;
+    border-radius: .625rem;
+    padding: .75rem .5rem;
+}
+
+.input-field-icon{
+    position: absolute;
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    top: 0.5rem;
+    left: 0.25rem;
+}
+
+.project-details-component__main-container__info__activity{
+    display: flex;
+}
+
+.project-details-component__main-container__info__activity__title{
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__info__activity__title__add-icon{
+    margin-left: .5rem;
+    max-width: 1.4rem;
+    max-height: 1.4rem;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.project-details-component__main-container__doc{
+    display: flex;
+    flex-direction: column;
+    margin: 0rem .5rem;
+    width: 35%;
+}
+
+.project-details-component__main-container__doc__scrap{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.project-details-component__main-container__doc__scrap__span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 0.07rem solid #0000FE;
+    border-radius: 0.5rem;
+    margin-right: 0.3125rem;
+    margin-bottom: 4.2rem;
+}
+
+.project-details-component__main-container__doc__scrap__btn{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__scrap__drop-down{
+    position: absolute;
+    top: 3rem;
+    z-index: 2;
+    display: flex;
+    padding: 1rem;
+    background-color: white;
+    border-radius: .5rem;
+    box-shadow: 0px 0px 10px 0px #D9D9D9;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__scrap__drop-down__icon{
+    max-height: 1rem;
+    max-width: 1rem;
+}
+
+.project-details-component__main-container__doc__scrap__drop-down__txt{
+    color: #E55251;
+    font-size: .9rem;
+    font-weight: 400;
+    margin-left: .5rem;
+}
+
+.project-details-component__main-container__doc__scrap__confirm{
+    position: fixed;
+    background-color: rgb(0,0,0,.5);
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 6.5rem;
+    overflow-y: scroll;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 36%;
+    padding: 30px 39px;
+    border-radius: 10px;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__title{
+    display: flex;
+    justify-content: space-between;
+    margin-left: .5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__title__icon{
+    max-width: 1.8rem;
+    max-height: 2rem;
+    margin-right: .25rem;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__description{
+    font-size: 13px;
+    line-height: 22px;
+    color: #7d979b;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__project-details{
+    display: flex;
+    flex-direction: column;
+    color: #343C6A;
+    background-color: #E5E9EF;
+    border-radius: .25rem;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__project-details__name{
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__project-details__location{
+    font-size: .9rem;
+    line-height: 1.5715;
+    word-wrap: break-word;
+    font-weight: 400;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__reason{
+    font-size: .8rem;
+    color: black;
+    font-weight: 400;
+    margin-bottom: .25rem;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__reason-input{
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 5rem;
+    margin-bottom: 1.5rem;
+    padding: 10px 0px;
+    outline: none;
+    border: .07rem solid #D9D9D9;
+    border-radius: .25rem;
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__reason-input:focus{
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.project-details-component__main-container__doc__scrap__confirm__form__reason-btn{
+    width: 100%;
+    min-height: 2rem;
+    border-radius: .25rem;
+    border: 0.07rem solid #E55251;
+    background-color: #E55251;
+    color: white;
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+.project-details-component__main-container__doc__status{
+    position: relative;
+    border: 0.3125rem solid #f7f7f7;
+    margin-bottom: 0.75rem;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-component__main-container__doc__status__title{
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__doc__status__title__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__status__description{
+    margin-bottom: 1.5rem;
+    font-size: .8rem;
+    font-weight: 400;
+    color: #7D979B;
+}
+
+.project-details-component__main-container__doc__status__btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    border: .07rem solid #D9D9D9;
+    border-radius: .5rem;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+}
+
+.project-details-component__main-container__doc__status__btn__dot{
+    background-color: #98A7BF;
+    min-width: .5rem;
+    min-height: .5rem;
+    border-radius: 50%;
+    margin-right: .5rem;
+    color: #98A7BF;
+}
+
+.project-details-component__main-container__doc__status__btn__txt{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #98A7BF;
+}
+
+.project-details-component__main-container__doc__status__btn__arrow{
+    margin-left: .5rem;
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down{
+    position: absolute;
+    background-color: white;
+    border-radius: .25rem;
+    min-height: 4rem;
+    min-width: 21.5rem;
+    z-index: 1;
+    top: 10.5rem;
+    box-shadow: 0px 0px 10px 0px #D9D9D9;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down__title{
+    margin: 1rem 0rem;
+    padding-left: 1.5rem;
+    font-size: .8rem;
+    font-weight: 400;
+    color: #D9D9D9;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down__select{
+    display: flex;
+    align-items: center;
+    border: .07rem solid white;
+    border-radius: 1rem;
+    margin-bottom: .2rem;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down__select:hover{
+    background-color: #F8F8F9;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down__dot{
+    background-color: #98A7BF;
+    min-width: .5rem;
+    min-height: .5rem;
+    border-radius: 50%;
+    margin-right: .5rem;
+}
+
+.project-details-component__main-container__doc__status__btn__drop-down__txt{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #98A7BF;
+}
+
+.project-details-component__main-container__doc__status__btn__scraped{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-component__main-container__doc__status__btn__scraped__title{
+    margin: .5rem 0rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__doc__status__btn__scraped__reason{
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+.project-details-component__main-container__doc__status__planned{
+    position: fixed;
+    background-color: rgb(0,0,0,.5);
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 6.5rem;
+    overflow-y: scroll;
+}
+
+.project-details-component__main-container__doc__status__planned__form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 36%;
+    padding: 30px 39px;
+    border-radius: 10px;
+}
+
+.project-details-component__main-container__doc__status__planned__form__title{
+    display: flex;
+    justify-content: space-between;
+    margin-left: .5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__doc__status__planned__form__date{
+    display: flex;
+    min-height: 6.5rem;
+    justify-content: space-between;
+}
+
+.project-details-component__main-container__doc__status__planned__form__amount{
+    margin: 10px 0 20px 0;
+    height: 40px;
+    width: 100%;
+    padding-left: 2rem;
+    border: .07rem solid #D9D9D9;
+    border-radius: .25rem;
+    outline: none;
+}
+
+.project-details-component__main-container__doc__status__planned__form__rupee-img{
+    position: absolute;
+    left: 0.5rem;
+    top: 1.4rem;
+    max-height: 1rem;
+    max-width: 1rem;
+}
+
+.project-details-component__main-container__doc__status__planned__update-btn{
+    width: 100%;
+    min-height: 2.3rem;
+    border-radius: .25rem;
+    border: 0.07rem solid #396AFF;
+    background-color: #396AFF;
+    color: white;
+    font-size: .8rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__status__planned__form__amount:focus{
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.project-details-component__main-container__doc__status__planned__form__date__input{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.plan-input-label{
+    font-size: 0.8125rem;
+    color: black;
+    width: 12rem;
+    margin: .25rem .5rem .25rem 0rem;
+}
+
+.plan-input-field{
+    background-color: white;
+    font-size: 1.25rem;
+    width: 12rem;
+    color: black;
+    margin: 10px 0 20px 0;
+    height: 40px;
+    padding-left: 8px;
+    overflow: hidden;
+    outline: none;
+}
+
+.project-details-component__main-container__doc__status__completed{
+    position: fixed;
+    background-color: rgb(0,0,0,.5);
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 6.5rem;
+    overflow-y: scroll;
+}
+
+.project-details-component__main-container__doc__status__completed__form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 36%;
+    padding: 30px 39px;
+    border-radius: 10px;
+}
+
+.project-details-component__main-container__doc__status__completed__form__title{
+    display: flex;
+    justify-content: space-between;
+    margin-left: .5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #343C6A;
+}
+
+.project-details-component__main-container__doc__status__completed__update-btn{
+    width: 100%;
+    min-height: 2.3rem;
+    border-radius: .25rem;
+    border: 0.07rem solid #396AFF;
+    background-color: #396AFF;
+    color: white;
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+.project-details-component__main-container__doc__status__completed__form__description{
+    font-size: 13px;
+    line-height: 22px;
+    color: #7d979b;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.project-details-component__main-container__doc__status__completed__form__project-details{
+    display: flex;
+    flex-direction: column;
+    color: #343C6A;
+    background-color: #E5E9EF;
+    border-radius: .25rem;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.project-details-component__main-container__doc__status__completed__form__project-details__name{
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.project-details-component__main-container__doc__status__completed__form__project-details__location{
+    font-size: .9rem;
+    line-height: 1.5715;
+    word-wrap: break-word;
+    font-weight: 400;
+}
+
+.project-details-component__main-container__doc__location{
+    position: relative;
+    border: 0.3125rem solid #f7f7f7;
+    margin-bottom: 0.75rem;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-component__main-container__doc__location__edit{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-details-component__main-container__doc__location__edit__btn{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__location__edit__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    cursor: pointer;
+}
+
+.project-details-component__main-container__doc__location__name{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.project-details-component__main-container__doc__location__name__txt{
+    background-color: #FFFFFF;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 0rem .5rem;
+    margin-bottom: .5rem;
+    margin-right: 2rem;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}
+
+.project-details-component__main-container__doc__location__name__txt:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
+
+.overlay{
+    position: fixed;
+    background-color: rgb(0,0,0,.5);
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 6.5rem;
+    overflow-y: scroll;
+}

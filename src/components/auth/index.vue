@@ -12,14 +12,15 @@
 <script>
 export default {
   name: `Auth`,
-  data(){
+  setup(){
+    const container= 'auth__container__login-component';
     return{
-      container: 'auth__container__login-component',
+      container
     }
   },
 };
 </script>
 
 <style>
-@import '@/components/Auth.scss';
+@import '@/components/auth/style.scss';
 </style>

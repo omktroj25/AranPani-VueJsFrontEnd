@@ -7,9 +7,9 @@
 <script>
 export default{
     name: 'MainContainer',
-}
+};
 </script>
 
 <style>
-@import '@/components/MainContainer.scss';
+@import '@/components/mainContainer/style.scss';
 </style>

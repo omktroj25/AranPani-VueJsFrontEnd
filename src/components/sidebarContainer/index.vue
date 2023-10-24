@@ -2,10 +2,10 @@
     <div class="sidebar-container">
         <p class="sidebar-container__title">Aran Pani</p>
         <ul>
-            <router-link class="sidebar-container__option" v-for="option in options" :key="option" :id="option" :to="{ name: option }" :class="{ 'sidebar-option-selected': option === selectedOption }" @click="selectOption(option)">
+            <router-link class="sidebar-container__option" v-for="option in options" :key="option" :id="option" :to="`/${option.toLowerCase()}`" :class="{ 'sidebar-option-selected': option === selectedOption }" @click.prevent="selectOption(option)">
                 <img class="sidebar-container__option__icon" :src="require(`@/assets/${option}.png`)"/>
                 <span class="sidebar-container__option__txt" :style="{ textDecoration: option === selectedOption ? 'underline #396AFF' : 'underline #040930'}">{{option}}</span>
-            </router-link>>
+            </router-link>
         </ul>
         <div class="sidebar-container__user-settings">
             <div class="sidebar-container__user-settings__admin">
@@ -17,7 +17,7 @@
                     <span>Admin</span>
                 </p>
             </div>
-            <div class="sidebar-container__user-settings__menu-btn" @click="toggleUserMenu">
+            <div class="sidebar-container__user-settings__menu-btn" @click.prevent="toggleUserMenu">
                 <img class="sidebar-container__user-settings__menu-btn__icon" src="@/assets/arrow.png">
             </div>
             <div class="sidebar-container__user-settings__menu" v-show="isUserMenu">
@@ -27,10 +27,10 @@
                         <p class="sidebar-container__user-settings__menu__option__txt">Admin</p>
                     </li>
                     <li class="sidebar-container__user-settings__menu__option">
-                        <img src="../assets/ChangePassword.png" class="sidebar-container__user-settings__menu__option__img">
+                        <img src="@/assets/ChangePassword.png" class="sidebar-container__user-settings__menu__option__img">
                         <p class="sidebar-container__user-settings__menu__option__txt">Change Password</p>
                     </li>
-                    <li class="sidebar-container__user-settings__menu__option">
+                    <li class="sidebar-container__user-settings__menu__option" @click.prevent="logoutUser">
                         <img src="@/assets/Logout.png" class="sidebar-container__user-settings__menu__option__img">
                         <p class="sidebar-container__user-settings__menu__option__txt">Logout</p>
                     </li>
@@ -41,11 +41,12 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import LogoutService from '@/services/LogoutService';
 export default {
     name: 'SidebarContainer',
-    data() {
-        return {
-            options: [
+    setup() {
+        const options= [
                 'Dashboard',
                 'Projects',
                 'Donors',
@@ -54,9 +55,13 @@ export default {
                 'Internal users',
                 'Subscription',
                 'Contact Details'
-            ],
-            isUserMenu: false,
-            selectedOption: null,
+            ];
+        const isUserMenu= ref(false);
+        const selectedOption = ref('Projects');
+        return {
+            options,
+            isUserMenu,
+            selectedOption,
         };
     },
     methods:{
@@ -70,10 +75,13 @@ export default {
             }
             this.selectedOption = option;
         },
-    }
-}
+        logoutUser(){
+            LogoutService.logout();
+        }
+    },
+};
 </script>
 
 <style>
-@import '@/components/SidebarContainer.scss';
+@import '@/components/sidebarContainer/style.scss';
 </style>
