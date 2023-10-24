@@ -40,7 +40,7 @@
             <p class="project-container__analysis__count">Showing {{ startEntry }} - {{ endEntry }} of {{ projectCount }}</p>
             <a-pagination v-model:current="requiredPage" v-model:pageSize="entries" :total="projectCount" show-less-items/>
         </div>
-        <a-empty v-if="donorCount == 0" :image="simpleImage" class="project-container__no-data"/>
+        <a-empty v-if="projectCount == 0" :image="simpleImage" class="project-container__no-data"/>
     </div>
     <router-view v-show="isProjectDetails"></router-view>
 </template>

@@ -248,6 +248,7 @@
 
 .project-details-component__main-container__info__activity{
     display: flex;
+    flex-direction: column;
 }
 
 .project-details-component__main-container__info__activity__title{
@@ -265,17 +266,6 @@
     max-height: 1.4rem;
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .project-details-component__main-container__doc{
     display: flex;
