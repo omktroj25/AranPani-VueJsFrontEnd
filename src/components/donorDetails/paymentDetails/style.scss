@@ -1,0 +1,132 @@
+/* Payment details style */
+.payment{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem
+}
+
+.payment__title{
+    display: flex;
+    align-items: center;
+    margin: 0rem 0.3125rem;
+    margin-bottom: 1rem;
+    color: #343C6A;
+    font-weight: 550;
+}
+
+.payment__cumulative{
+    display: flex;
+    background-color: #040930;
+    box-shadow: 0 4px 24px #3E3F5E0F;
+    border-radius: 10px;
+    padding: 16px 25px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.payment__cumulative__title{
+    display: flex;
+    flex-direction: column;
+    color: #7E90B0;
+    font-size: .8rem;
+    font-weight: 400;
+    padding: .25rem;
+    width: 50%;
+}
+
+.payment__cumulative__amount{
+    color: white;
+    font-size: .9rem;
+    font-weight: 500;
+    margin-top: .5rem;
+}
+
+.payment__banner{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    padding: 12px 16px;
+    color: rgba(0, 0, 0, 0.85);
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    .date{
+        display: flex;
+        flex-direction: column;
+        color: #262626;
+        font-size: .9rem;
+    }
+
+    .donate{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: .5rem;
+        color: #7D979B;
+        font-size: .8rem;
+    }
+
+    .amount{
+        display: flex;
+        flex-direction: column;
+        color: #343C6A; 
+        font-size: .9rem;
+    }
+
+    .paid{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: .5rem;
+        color: #86BA60; 
+        font-size: .8rem;
+    }
+
+    .payment__banner__bill{
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+        border-top: .07rem solid #F0F0F0;
+
+        .title{
+            font-size: 13px;
+            color: #7d979b;
+            margin-top: 1.5rem;
+        }
+
+        .category{
+            display: flex;
+            justify-content: space-between;
+            margin: .5rem 0rem;
+
+            .question{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 50%;
+                color: #343C6A;
+                font-size: .9rem;
+            }
+            
+            .answer{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                width: 50%;
+                color: #343C6A;
+                font-size: .9rem;
+            }
+        }
+
+    }
+}
+
+.question span{
+    margin-top: 1rem;
+}
+
+.answer span{
+    margin-top: 1rem;
+}
+

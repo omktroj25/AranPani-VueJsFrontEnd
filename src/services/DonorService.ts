@@ -133,4 +133,32 @@ export default{
         }
     },
 
+    // To get the payment details of the  donor using the donor id
+    async getPaymentDetailsById(donorId: number){
+        try{
+            const authData = Store.state.authHeaderData;
+            const url = `${API_URL}/${donorId}/payments`;
+            const response = await Axios.get(url,{
+                headers: authData,
+            });
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
 };

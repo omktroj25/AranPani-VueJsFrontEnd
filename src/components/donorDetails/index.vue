@@ -15,7 +15,11 @@
                     </div>
                 </div>
                 <!-- Donor profile details -->
-                <DonorProfileDetails :donorData="donorData"/>
+                <ProfileDetails :donorData="donorData"/>
+                <!-- Donor subscription details -->
+                <SubscriptionDetails :donorData="donorData"/>
+                <!-- Donor payment details -->
+                <PaymentDetails :rDonorId="donorData.id"/>
             </div>
             <div class="donor-details__main-container__team">
                 
@@ -27,11 +31,15 @@
 <script>
 import { ref } from 'vue';
 import DonorService from '@/services/DonorService';
-import DonorProfileDetails from '@/components/donorDetails/donorProfileDetails/index.vue';
+import ProfileDetails from '@/components/donorDetails/profileDetails/index.vue';
+import SubscriptionDetails from '@/components/donorDetails/subscriptionDetails/index.vue';
+import PaymentDetails from '@/components/donorDetails/paymentDetails/index.vue';
 export default{
     name: 'DonorsDetails',
     components:{
-        DonorProfileDetails,
+        ProfileDetails,
+        SubscriptionDetails,
+        PaymentDetails,
     },
     mounted(){
         this.getDonorId();

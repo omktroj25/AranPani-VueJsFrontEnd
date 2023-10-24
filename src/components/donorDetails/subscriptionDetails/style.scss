@@ -1,0 +1,43 @@
+/* Subscription details style */
+.subscription{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem
+}
+
+.subscription__title{
+    display: flex;
+    align-items: center;
+    margin: 0rem 0.3125rem;
+    margin-bottom: 1rem;
+    color: #343C6A;
+    font-weight: 550;
+}
+
+.subscription__select{
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+.subscription__select{
+    .ant-select-selector{
+        display: flex;
+        align-items: center;
+        height: 6rem !important;
+        border-radius: .5rem !important;
+        color: white !important;
+        font-size: .9rem !important;
+        background-image: url('@/assets/select-banner.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+
+        .ant-select-selection-placeholder{
+            color: white !important;
+        }
+    }
+    .ant-select-arrow{
+        color: white !important;
+    }
+}
