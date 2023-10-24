@@ -45,6 +45,9 @@ import { ref } from 'vue';
 import LogoutService from '@/services/LogoutService';
 export default {
     name: 'SidebarContainer',
+    mounted() {
+        this.$router.push('/projects');
+    },
     setup() {
         const options= [
                 'Dashboard',

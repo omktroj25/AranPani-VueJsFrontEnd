@@ -224,15 +224,15 @@
 <script>
 import ProjectService from '@/services/ProjectService';
 import { ref } from 'vue';
-import { VueTelInput } from 'vue-tel-input';
-import 'vue-tel-input/vue-tel-input.css';
+// import { VueTelInput } from 'vue-tel-input';
+// import 'vue-tel-input/vue-tel-input.css';
 import dayjs from 'dayjs';
 // import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 export default{
     name: 'ProjectDetails',
-    components:{
-        VueTelInput,
-    },
+    // components:{
+    //     VueTelInput,
+    // },
     mounted(){
         this.getProjectId();
         this.getProjectDetailsById(this.projectId);

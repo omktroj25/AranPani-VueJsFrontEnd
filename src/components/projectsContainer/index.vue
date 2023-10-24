@@ -36,11 +36,11 @@
                 </tr>
             </table>
         </div>
-        <div class="project-container__footer" v-if="projectData && projectData['total_record_count'] !== 0 && debounceLoading === false">
+        <div class="project-container__footer" v-if="projectCount !== 0 && debounceLoading === false">
             <p class="project-container__analysis__count">Showing {{ startEntry }} - {{ endEntry }} of {{ projectCount }}</p>
             <a-pagination v-model:current="requiredPage" v-model:pageSize="entries" :total="projectCount" show-less-items/>
         </div>
-        <a-empty :image="simpleImage" class="project-container__no-data" v-else/>
+        <a-empty v-if="donorCount == 0" :image="simpleImage" class="project-container__no-data"/>
     </div>
     <router-view v-show="isProjectDetails"></router-view>
 </template>
@@ -55,7 +55,7 @@ export default{
     beforeCreate() {
         this.debouncedSelectStatus = Debounce((selectedStatusValue, searchValue, pageValue) => {
             this.selectStatus(selectedStatusValue, searchValue, pageValue);
-            this.debounceLoading='true';
+            this.debounceLoading=true;
         }, 300);
     },
     mounted() {
