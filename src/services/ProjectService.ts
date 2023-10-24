@@ -13,7 +13,7 @@ export default{
         try{
             if (!['Proposed', 'Planned', 'Active', 'Completed', 'Scrapped'].includes(selectedStatus)) {
                 selectedStatus = '';
-            }
+            } 
             const authData = Store.state.authHeaderData; 
             const response = await Axios.get(API_URL,{
                 params:{
@@ -74,7 +74,7 @@ export default{
         }
     },
 
-    // To upadate the name and temple name
+    // To upadate the project details
     async updateProject(projectId: number, projectData: any){
         try{
             const authData = Store.state.authHeaderData;
@@ -264,4 +264,70 @@ export default{
             return false;
         }
     },
+
+    // To upload the document of individual project using the id
+    async uploadDocument(projectId: any, document: any){
+        try{
+            const authData = Store.state.authHeaderData;
+            const url = 'https://api.uat.aranpani.in/api/v1/admin/project_documents';
+            const formData = new FormData();
+            formData.append('project_id', projectId);
+            formData.append('document', document);
+            const response = await Axios.post(url,formData,{
+                headers: {
+                    ...authData,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            Notify.createNotification('success',`Success`, 'Document uploaded successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
+
+    // To create the new project
+    async createNewProject(projectData: any){
+        try{
+            const authData = Store.state.authHeaderData;
+            const response = await Axios.post(API_URL,projectData,{
+                headers: authData,
+            });
+            Notify.createNotification('success',`Success`, 'Project created successfully');
+            return response;
+        }
+        catch (error: any) {
+            if(error.response && error.response.status){
+                if(error.response.status == 401){
+                    localStorage.removeItem('authData');
+                    Store.commit('setAuthData',{});
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    Router.push('/auth/login');
+                    return false;
+                }
+                else{
+                    Notify.createNotification('error',`${error.response.status} Error`,error.response.data.errors);
+                    return false;
+                }
+            }
+            Notify.createNotification('error','Error','Unable to reach the server. Check the internet connection and try after sometime');
+            return false;
+        }
+    },
+
 };

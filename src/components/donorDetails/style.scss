@@ -1,1 +1,103 @@
 /* Donor details style */
+.donor-details{
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.donor-details__main-container{
+    display: flex;
+    margin: 2rem;
+}
+
+.donor-details__main-container__self{
+    display: flex;
+    flex-direction: column;
+    margin: 0rem .5rem;
+    width: 62%;
+}
+
+.donor-details__main-container__team{
+    display: flex;
+    flex-direction: column;
+    margin: 0rem .5rem;
+    width: 35%;
+}
+
+.donor-details__title{
+    display: flex;
+    cursor: pointer;
+    width: 5rem;
+    align-items: center;
+    justify-content: start;
+    margin: 3.5rem 2rem 0rem 2rem;
+    font-size: .9rem;
+    font-weight: 400;
+    color: #7E90B0;
+}
+
+.donor-details__title__img{
+    margin-right: .5rem;
+    max-width: 1.4rem;
+    max-height: 1rem;
+}
+
+.donor-details__main-container__self__name{
+    display: flex;
+    align-items: center;
+    margin: 0rem 0.3125rem;
+    margin-bottom: 0.5rem;
+    color: #343C6A;
+}
+
+.donor-details__main-container__self__name__donor{
+    display: flex;
+}
+
+.donor-details__main-container__self__name__donor__img{
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 40%;
+    background-color: white;
+    margin-right: 1rem;
+}
+
+.donor-details__main-container__self__name__donor__txt{
+    background-color: white;
+    font-size: 24px;
+    width: 15rem;
+    color: #343C6A;
+    line-height: 2rem;
+    padding: 0rem .5rem;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}
+
+.donor-details__main-container__self__name__donor__txt:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
+
+.edit-mode-on__border {
+    border-bottom: 0.0625rem solid rgba(128, 128, 128, 0.562);
+}
+
+.donor-details__main-container__self__name__edit{
+    display: flex;
+    margin-left: .5rem
+}
+
+.donor-details__main-container__self__name__edit__icon{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.donor-details__main-container__self__name__edit__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: flex-end;
+    cursor: pointer;
+}

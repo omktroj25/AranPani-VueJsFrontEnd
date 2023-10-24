@@ -93,10 +93,7 @@
                     </form>
                 </div>
                 <!-- Activity form -->
-                <div v-show="projectData.status !== 'proposed' && projectData.status !== 'planned'" class="project-details-component__main-container__info__activity">
-                    <p class="project-details-component__main-container__info__activity__title">Activity<span><img src="@/assets/plus-icon.png" id="addActivity" class="project-details-component__main-container__info__activity__title__add-icon" @click.prevent="newActivity = !newActivity"/></span></p>
-                    <ActivityForm :projectData="projectData" :newActivity="newActivity" @newActivity="newActivity = $event" @reloadProjectDetails="getProjectDetailsById()"/>
-                </div>
+                <ActivityForm :projectData="projectData" @reloadProjectDetails="getProjectDetailsById()"/>
             </div>
             <!-- Document displaying container -->
             <div class="project-details-component__main-container__doc">
@@ -113,7 +110,7 @@
                     </div>
                     <!-- Scrap form -->
                     <div v-show="scrapConfirm && projectData.status != 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
-                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="scrapProject">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form">
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-trash.png"/>Scrap project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to the project? the project will be temporarily removed from the platform</p>
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
@@ -122,19 +119,19 @@
                             </div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__reason">Reason</p>
                             <textarea id="scrapReason" v-model="scrapReason" class="project-details-component__main-container__doc__scrap__confirm__form__reason-input"></textarea>
-                            <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Scrap project</button>
+                            <button  @click.prevent="scrapProject" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Scrap project</button>
                         </form>
                     </div>
                     <!-- Delete form -->
                     <div v-show="scrapConfirm && projectData.status == 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
-                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="deleteProject">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form">
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-delete.png"/>Delete project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to delete the project? the project will be permanently removed from the platform</p>
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
                                 <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__name">{{ projectData.name }}</p>
                                 <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__location">{{ projectData.location }}</p>
                             </div>
-                            <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Delete project</button>
+                            <button @click.prevent="deleteProject" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Delete project</button>
                         </form>
                     </div>
                 </div>
@@ -182,7 +179,7 @@
                             </div>
                             <label class="plan-input-label">Estimated Amount</label>
                             <span style="position: relative;">
-                                <input type="text" placeholder="Enter estimated amount" class="project-details-component__main-container__doc__status__planned__form__amount"/>
+                                <input type="text" placeholder="Enter estimated amount" v-model="estimatedPlanAmount" class="project-details-component__main-container__doc__status__planned__form__amount"/>
                                 <img class="project-details-component__main-container__doc__status__planned__form__rupee-img" src="@/assets/rupee.png"/>
                             </span>
                             <button type="submit" class="project-details-component__main-container__doc__status__planned__update-btn">Update project</button>
@@ -202,21 +199,13 @@
                     </div>
                 </div>
                 <!-- Location form -->
-                <div class="project-details-component__main-container__doc__location">
-                    <div class="project-details-component__main-container__doc__location__edit">
-                        <img v-show="isEditMap === true ? false : true" @click.prevent="editMapControl" class="project-details-component__main-container__doc__location__edit__btn" src="@/assets/edit-icon.png"/>
-                        <img v-show="isEditMap" class="project-details-component__main-container__doc__location__edit__control" src="@/assets/done-icon.png"/>
-                        <img v-show="isEditMap" @click.prevent="editMapControl" class="project-details-component__main-container__info__name-input__edit__control" src="@/assets/close-icon.png"/>
-                    </div>
-                    <div class="project-details-component__main-container__doc__location__name">
-                        <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location" type="text" class="project-details-component__main-container__doc__location__name__txt" style="font-size: 1.6rem;"/>
-                        <input  :disabled="!isEditMap" :class="{ 'edit-mode-on__border': isEditMap }" id="location_name_tamil" type="text" class="project-details-component__main-container__doc__location__name__txt"/>
-                    </div>
-                    <div id="google-map">
-                        <GoogleMap api-key="" style="width: 100%; height: 350px" :center="center" :zoom="15">
-                            <Marker :options="{ position: center }" />
-                        </GoogleMap>
-                    </div>
+                <LocationForm :projectData="projectData" :center="center" @reloadProjectDetails="getProjectDetailsById()"/>
+                <!-- Document form -->
+                <DocumentForm :projectData="projectData"/>
+                <!-- Subscriber form -->
+                <div class="subscribe-form">
+                    <p class="subscribe-form__title">0 Subscriptions</p>
+                    <p class="subscribe-form__description">Donors who subscribed to this project</p>
                 </div>
             </div>
         </div>
@@ -227,16 +216,17 @@
 import ProjectService from '@/services/ProjectService';
 import { ref } from 'vue';
 import ActivityForm from '@/components/projectDetails/activityForm/index.vue';
+import DocumentForm from '@/components/projectDetails/documentForm/index.vue';
+import LocationForm from '@/components/projectDetails/locationForm/index.vue';
 import { VueTelInput } from 'vue-tel-input';
-import 'vue-tel-input/vue-tel-input.css'
-import { GoogleMap, Marker } from "vue3-google-map";
+import 'vue-tel-input/vue-tel-input.css';
 export default{
     name: 'ProjectDetails',
     components:{
         ActivityForm,
+        DocumentForm,
+        LocationForm,
         VueTelInput,
-        GoogleMap,
-        Marker,
     },
     mounted(){
         this.getProjectId();
@@ -247,7 +237,6 @@ export default{
         const projectData = ref({});
         const isEditAll = ref(false);
         const isEditName = ref(false);
-        const isEditMap = ref(false);
         const isComplete = ref(false);
         const selectStatus = ref(false);
         const openScrap = ref(false);
@@ -264,28 +253,28 @@ export default{
         const nextStatus = ref('');
         const imageCount = ref(0);
         const center = ref({});
-        const newActivity = ref(false);
+        const newCenter = ref({});
         const statusType = {
-            scrapped: {
-                txt: '#98A7BF',
-                bg: '#E9EDF2'
-            },
-            proposed: {
-                txt: '#7E90B0',
-                bg: '#E9EDF2'
-            },
-            planned: {
-                txt: '#F1A801',
-                bg: '#FDF0DD'
-            },
-            active: {
-                txt: '#396AFF',
-                bg: '#DEE6FF'
-            },
-            completed: {
-                txt: '#82B85C',
-                bg: '#F0F6EB'
-            },
+                scrapped: {
+                    txt: '#98A7BF',
+                    bg: '#E9EDF2'
+                },
+                proposed: {
+                    txt: '#7E90B0',
+                    bg: '#E9EDF2'
+                },
+                planned: {
+                    txt: '#F1A801',
+                    bg: '#FDF0DD'
+                },
+                active: {
+                    txt: '#396AFF',
+                    bg: '#DEE6FF'
+                },
+                completed: {
+                    txt: '#82B85C',
+                    bg: '#F0F6EB'
+                },
             };
         return{
             projectId,
@@ -294,7 +283,6 @@ export default{
             statusType,
             isEditAll,
             isEditName,
-            isEditMap,
             isComplete,
             selectStatus,
             scrapConfirm,
@@ -310,7 +298,7 @@ export default{
             updateMonth,
             imageCount,
             center,
-            newActivity,
+            newCenter,
         }
     },
     methods:{
@@ -327,10 +315,18 @@ export default{
                 this.projectData['incharge_mobile_number'] = (this.projectData['incharge_mobile_number'] === null ? '' : this.projectData['incharge_mobile_number']);
                 this.projectData['start_date'] = this.formatDate(this.projectData['start_date']);
                 this.projectData['end_date'] = this.formatDate(this.projectData['end_date']);
-                this.center = {
-                    lat: this.projectData.lat,
-                    lng: this.projectData.long,
-                };
+                if(this.projectData.lat !== null && this.projectData.long !== null){
+                        this.center = {
+                        lat: this.projectData.lat,
+                        lng: this.projectData.long,
+                    };
+                }
+                else{
+                    this.center = {
+                        lat: 28.644800,
+                        lng: 77.216721,
+                    };
+                }
             }
         },
         async updateName(){
@@ -373,7 +369,7 @@ export default{
         async scrapProject(){
             const newData = {
                 reason: this.scrapReason,
-                status: this.nextStatus,
+                status: 'scrapped',
             }
             const response = await ProjectService.updateProject(this.projectId, newData);
             if(response && response.status == 200){
@@ -465,9 +461,15 @@ export default{
 
             if (status in this.statusType) {
                 const statusInfo = this.statusType[status];
-                statusBtn.style.backgroundColor = statusInfo.bg;
-                statusTxt.style.color = statusInfo.txt;
-                statusDot.style.backgroundColor = statusInfo.txt;
+                if (statusBtn && statusInfo.bg) {
+                    statusBtn.style.backgroundColor = statusInfo.bg;
+                }
+                if(statusTxt && statusInfo.txt){
+                    statusTxt.style.color = statusInfo.txt;
+                }
+                if(statusDot && statusInfo.txt){
+                    statusDot.style.backgroundColor = statusInfo.txt;
+                }
             }
         },
         setNextStatusStyles(nextStatus){
@@ -476,8 +478,12 @@ export default{
 
             if (nextStatus in this.statusType) {
                 const nextStatusInfo = this.statusType[nextStatus];
-                nextBtn.style.color = nextStatusInfo.txt;
-                nextDot.style.backgroundColor = nextStatusInfo.txt;
+                if(nextBtn && nextStatusInfo.txt){
+                    nextBtn.style.color = nextStatusInfo.txt;
+                }
+                if(nextDot && nextStatusInfo.txt){
+                    nextDot.style.backgroundColor = nextStatusInfo.txt;
+                }
             }
         },
         progressRoundString(percent){
@@ -502,9 +508,6 @@ export default{
         },
         editAllControl(){
             this.isEditAll = !this.isEditAll;
-        },
-        editMapControl(){
-            this.isEditMap = !this.isEditMap;
         },
         selectStatusControl(){
             if(this.projectData.status !== 'completed'){
@@ -531,11 +534,6 @@ export default{
                 return `${year}-${month}-${day}`;
             }
             return null;
-        },
-        updateCenter(event) {
-            console.log(event);
-            // Update the marker position when the map is moved
-            console.log(this.center);
         },
     },
     watch:{
