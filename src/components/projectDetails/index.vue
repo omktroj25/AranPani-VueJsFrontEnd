@@ -110,7 +110,7 @@
                     </div>
                     <!-- Scrap form -->
                     <div v-show="scrapConfirm && projectData.status != 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
-                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="scrapProject">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form">
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-trash.png"/>Scrap project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to the project? the project will be temporarily removed from the platform</p>
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
@@ -119,19 +119,19 @@
                             </div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__reason">Reason</p>
                             <textarea id="scrapReason" v-model="scrapReason" class="project-details-component__main-container__doc__scrap__confirm__form__reason-input"></textarea>
-                            <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Scrap project</button>
+                            <button  @click.prevent="scrapProject" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Scrap project</button>
                         </form>
                     </div>
                     <!-- Delete form -->
                     <div v-show="scrapConfirm && projectData.status == 'scrapped'" class="project-details-component__main-container__doc__scrap__confirm">
-                        <form class="project-details-component__main-container__doc__scrap__confirm__form" @submit.prevent="deleteProject">
+                        <form class="project-details-component__main-container__doc__scrap__confirm__form">
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__title"><p style="display: flex; align-items: center;"><img class="project-details-component__main-container__doc__scrap__confirm__form__title__icon" src="@/assets/blue-delete.png"/>Delete project</p><img @click.prevent="scrapClose" style="width: 1.5rem; height: 1.5rem; cursor: pointer;" src="@/assets/x.png"/></div>
                             <p class="project-details-component__main-container__doc__scrap__confirm__form__description">Are you sure to delete the project? the project will be permanently removed from the platform</p>
                             <div class="project-details-component__main-container__doc__scrap__confirm__form__project-details">
                                 <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__name">{{ projectData.name }}</p>
                                 <p class="project-details-component__main-container__doc__scrap__confirm__form__project-details__location">{{ projectData.location }}</p>
                             </div>
-                            <button type="submit" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Delete project</button>
+                            <button @click.prevent="deleteProject" class="project-details-component__main-container__doc__scrap__confirm__form__reason-btn">Delete project</button>
                         </form>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                             </div>
                             <label class="plan-input-label">Estimated Amount</label>
                             <span style="position: relative;">
-                                <input type="text" placeholder="Enter estimated amount" class="project-details-component__main-container__doc__status__planned__form__amount"/>
+                                <input type="text" placeholder="Enter estimated amount" v-model="estimatedPlanAmount" class="project-details-component__main-container__doc__status__planned__form__amount"/>
                                 <img class="project-details-component__main-container__doc__status__planned__form__rupee-img" src="@/assets/rupee.png"/>
                             </span>
                             <button type="submit" class="project-details-component__main-container__doc__status__planned__update-btn">Update project</button>
@@ -219,7 +219,7 @@ import ActivityForm from '@/components/projectDetails/activityForm/index.vue';
 import DocumentForm from '@/components/projectDetails/documentForm/index.vue';
 import LocationForm from '@/components/projectDetails/locationForm/index.vue';
 import { VueTelInput } from 'vue-tel-input';
-import 'vue-tel-input/vue-tel-input.css'
+import 'vue-tel-input/vue-tel-input.css';
 export default{
     name: 'ProjectDetails',
     components:{
@@ -369,7 +369,7 @@ export default{
         async scrapProject(){
             const newData = {
                 reason: this.scrapReason,
-                status: this.nextStatus,
+                status: 'scrapped',
             }
             const response = await ProjectService.updateProject(this.projectId, newData);
             if(response && response.status == 200){
