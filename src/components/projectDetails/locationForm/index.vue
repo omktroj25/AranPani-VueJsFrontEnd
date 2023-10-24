@@ -1,6 +1,4 @@
 <template>
-    <span v-if="center != null && newCenter == null ? newCenter = center : newCenter = center"></span>
-    <span v-if="projectData != null && componentProjectData == null ? componentProjectData = projectData : componentProjectData = projectData"></span>
     <div class="project-details-component__main-container__doc__location">
         <div class="project-details-component__main-container__doc__location__edit">
             <img v-show="isEditMap === true ? false : true" @click.prevent="editMapControl" class="project-details-component__main-container__doc__location__edit__btn" src="@/assets/edit-icon.png"/>
@@ -77,6 +75,18 @@ export default{
             this.isEditMap = !this.isEditMap;
         },
     },
+    watch:{
+        projectData(){
+            if(this.projectData !== null){
+                this.componentProjectData = this.projectData;
+            }
+        },
+        center(){
+            if(this.center !== null){
+                this.newCenter = this.center;
+            }
+        },
+    }
 }
 </script>
 

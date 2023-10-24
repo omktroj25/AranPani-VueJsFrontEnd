@@ -1,0 +1,79 @@
+/* donor profile details style */
+.donor-details__main-content__self__details{
+    display: flex;
+    flex-direction: column;
+    border: 0.3125rem solid #f7f7f7;
+    margin-bottom: 0.75rem;
+    box-shadow: 0rem 0.25rem 1.5rem #3E3F5E0F;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    width: 100%;
+    min-height: 30rem;
+}
+
+.donor-details__main-container__self__title{
+    display: flex;
+    align-items: center;
+    margin: 0rem 0.3125rem;
+    margin-bottom: 0.5rem;
+    color: #343C6A;
+}
+
+.donor-details__main-container__self__title__edit{
+    display: flex;
+    margin-left: .5rem
+}
+
+.donor-details__main-container__self__title__edit__icon{
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.donor-details__main-container__self__title__edit__control{
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.donor-details__main-content__self__details__fields{
+    display: flex;
+    flex-direction: column;
+}
+
+.donor-details__main-content__self__details__fields__rack{
+    display: flex;
+    min-height: 6rem;
+}
+
+.donor-details__main-content__self__details__fields__rack__input{
+    display: flex;
+    flex-direction: column; 
+    margin-top: 1.5rem;
+}
+
+.input-label-donor{
+    font-size: 0.8125rem;
+    color: #7d979b;
+    width: 12.95rem;
+    margin: .25rem .5rem .25rem 0rem;
+}
+
+.input-field-donor{
+    background-color: white;
+    font-size: 18px;
+    width: 12.95rem;
+    color: black;
+    line-height: 2rem;
+    margin: .25rem .5rem .25rem 0rem;
+    overflow: hidden;
+    border: none;
+    outline: none;
+}
+
+.input-field-donor:focus{
+    border: 0.15rem solid #D6E8FF;
+    border-bottom: .1rem solid blue;
+}
